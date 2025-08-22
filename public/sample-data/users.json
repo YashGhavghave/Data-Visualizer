@@ -1,0 +1,9 @@
+[
+  {"city": "New York", "users": 8254, "plan": "premium"}, 
+  {"city": "London", "users": 6841, "plan": "premium"}, 
+  {"city": "Tokyo", "users": 12541, "plan": "free"},
+  {"city": "Paris", "users": 5498, "plan": "free"},
+  {"city": "Sydney", "users": 4312, "plan": "premium"},
+  {"city": "Dubai", "users": 3854, "plan": "business"},
+  {"city": "Singapore", "users": 5912, "plan": "business"}
+]
