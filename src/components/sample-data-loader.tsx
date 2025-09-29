@@ -9,8 +9,7 @@ interface SampleDataLoaderProps {
 }
 
 const sampleFiles = [
-    { name: "Sales Data", path: "/sample-data/sales.csv", type: "text/csv"},
-    { name: "User Demographics", path: "/sample-data/users.json", type: "application/json"}
+    { name: "Product Analytics", path: "/sample-data/product_analytics.csv", type: "text/csv"},
 ];
 
 export default function SampleDataLoader({ onSampleSelect, disabled }: SampleDataLoaderProps) {
@@ -36,7 +35,7 @@ export default function SampleDataLoader({ onSampleSelect, disabled }: SampleDat
     return (
         <div className="mt-4">
             <p className="text-sm text-center text-muted-foreground mb-2">Or try with sample data:</p>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 gap-2">
                 {sampleFiles.map(file => (
                     <Button 
                         key={file.name}

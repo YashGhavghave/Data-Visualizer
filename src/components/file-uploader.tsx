@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useCallback, type DragEvent } from 'react';
@@ -27,11 +28,13 @@ export default function FileUploader({ onFileUpload, disabled }: FileUploaderPro
       return;
     }
 
-    const fileType = file.type;
+    const fileMimeType = file.type;
     const fileName = file.name.toLowerCase();
-    const isValid = ACCEPTED_MIME_TYPES.includes(fileType) || ACCEPTED_EXTENSIONS.some(ext => fileName.endsWith(ext));
+    
+    const isCsv = fileMimeType === 'text/csv' || fileName.endsWith('.csv');
+    const isJson = fileMimeType === 'application/json' || fileName.endsWith('.json');
 
-    if (!isValid) {
+    if (!isCsv && !isJson) {
       toast({
         variant: 'destructive',
         title: 'Invalid File Type',
@@ -43,7 +46,8 @@ export default function FileUploader({ onFileUpload, disabled }: FileUploaderPro
     const reader = new FileReader();
     reader.onload = (e) => {
       const content = e.target?.result as string;
-      onFileUpload(content, { name: file.name, type: file.type || (fileName.endsWith('.csv') ? 'text/csv' : 'application/json') });
+      const resolvedFileType = isCsv ? 'text/csv' : 'application/json';
+      onFileUpload(content, { name: file.name, type: resolvedFileType });
     };
     reader.onerror = () => {
         toast({
@@ -107,7 +111,7 @@ export default function FileUploader({ onFileUpload, disabled }: FileUploaderPro
             </p>
             <p className="text-xs text-muted-foreground/80">CSV or JSON files</p>
         </div>
-        <input id="file-upload" type="file" className="sr-only" accept=".csv,application/json" onChange={(e) => handleFile(e.target.files ? e.target.files[0] : null)} disabled={disabled} />
+        <input id="file-upload" type="file" className="sr-only" accept=".csv,.json,text/csv,application/json" onChange={(e) => handleFile(e.target.files ? e.target.files[0] : null)} disabled={disabled} />
       </label>
     </div>
   );
